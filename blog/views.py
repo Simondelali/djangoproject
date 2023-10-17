@@ -5,6 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.http import HttpResponse
+import csv
 
 # Create your views here.
 
@@ -14,12 +16,35 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
+class export():
+
+    def posts_csv(request):
+        response = HttpResponse(content_type='text/csv')   
+        response['Content-Disposition'] = 'attachment; filename="posts.csv"'
+
+        # create the csv writer object
+        writer = csv.writer(response)
+
+        # desiqnate the model
+        posts = Post.objects.all()
+
+        # add column headings to the csv file
+        writer.writerow(['Title', 'content', 'Author', 'date posted'])
+
+        # add  data to csv file
+        for post in posts:
+            writer.writerow([post.title, post.content, post.author.username, post.date_posted])
+
+        return response
+
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
+
+
 
 class UserPostListView(ListView):
     model = Post

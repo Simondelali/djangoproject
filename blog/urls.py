@@ -5,7 +5,8 @@ from .views import (
     PostCreateView, 
     PostUpdateView, 
     PostDeleteView,
-    UserPostListView
+    UserPostListView,
+    export
 )
 from . import views
 
@@ -17,5 +18,8 @@ urlpatterns = [
     path('post/<int:pk>/update', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete', PostDeleteView.as_view(), name='post-delete'),
     path('about/', views.about, name='blog-about'),
+    
+    #Export
+    path('posts_csv', export.posts_csv, name='posts_csv')
 ]
 
