@@ -1,2 +1,2 @@
 # djangoproject
-This a blog project built in django
+This a blog project built in django framework
