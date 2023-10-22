@@ -20,6 +20,7 @@ urlpatterns = [
     path('about/', views.about, name='blog-about'),
     
     #Export
-    path('posts_csv', export.posts_csv, name='posts_csv')
+    path('posts_csv', export.posts_csv, name='posts_csv'),
+    path('users_csv', export.fetch_data_from_api, name='users_csv'),
 ]
 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from django.http import HttpResponse
-import csv
+import csv, requests
 
 # Create your views here.
 
@@ -36,8 +36,42 @@ class export():
             writer.writerow([post.title, post.content, post.author.username, post.date_posted])
 
         return response
+    
+    def fetch_data_from_api(request):
 
-class PostListView(ListView):
+        api_url = "https://randomuser.me/api/"
+
+        try:   
+            response = requests.get(api_url)
+
+            if response.status_code == 200:
+                data = response.json()
+
+                users = data.get('results', [])
+
+                # Create an HttpResponse with content type 'text/csv'
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+                # create the csv writer object
+                writer = csv.writer(response)
+
+                # add column headings to the csv file
+                writer.writerow(['Gender', 'Name', 'location', 'Nationality'])
+
+                # add  data to csv file
+
+                for user in users:
+                    writer.writerow([user['gender'], user['name']['first'], user['location']['city'], user['nat']])
+                
+                return response
+            else:
+                return HttpResponse('Error while fetching data from API', status=500)
+            
+        except Exception as e:
+            return HttpResponse(f'Error at: {str(e)}', status=500)
+
+class PostListView(ListView):   
     model = Post
     template_name = 'blog/home.html'
     context_object_name = 'posts'
