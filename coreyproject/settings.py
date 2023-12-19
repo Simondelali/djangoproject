@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'ckeditor',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -145,3 +146,40 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': '320px',
+    'width': '960px',
+    'menubar': 'file edit view insert format tools table help',
+    'plugins': (
+        'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code '
+        'fullscreen insertdatetime media table paste codesample'
+    ),
+    'toolbar': (
+        'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft '
+        'aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | forecolor '
+        'backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | '
+        'fullscreen preview save print | insertfile image media pageembed template link anchor codesample | '
+        'a11ycheck ltr rtl | showcomments addcomment code'
+    ),
+    'custom_undo_redo_levels': 10,
+    'content_css': [
+        'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/monokai.min.css',
+    ],
+    'setup': 'function(editor) { editor.on("init", function() { tinymce.ScriptLoader.load("https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"); tinymce.ScriptLoader.load("https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"); tinymce.ScriptLoader.load("https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/htmlmixed/htmlmixed.min.js"); }); }',
+    'codesample_languages': [
+        {'text': 'HTML/XML', 'value': 'xml'},
+        {'text': 'JavaScript', 'value': 'javascript'},
+        {'text': 'CSS', 'value': 'css'},
+        {'text': 'Python', 'value': 'python'},
+        {'text': 'Java', 'value': 'java'},
+        {'text': 'C', 'value': 'c'},
+        {'text': 'C#', 'value': 'csharp'},
+        {'text': 'C++', 'value': 'cpp'},
+        {'text': 'PHP', 'value': 'php'},
+        {'text': 'Ruby', 'value': 'ruby'},
+    ],
+    'codesample_global_prismjs': True, 
+}
