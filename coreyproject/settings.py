@@ -149,8 +149,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 
 TINYMCE_DEFAULT_CONFIG = {
-    'height': '320px',
-    'width': '960px',
+    'height': '520px',
+    'width': '680px',
     'menubar': 'file edit view insert format tools table help',
     'plugins': (
         'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code '
@@ -180,6 +180,15 @@ TINYMCE_DEFAULT_CONFIG = {
         {'text': 'C++', 'value': 'cpp'},
         {'text': 'PHP', 'value': 'php'},
         {'text': 'Ruby', 'value': 'ruby'},
+        {'text': 'Go', 'value': 'go'},
+        {'text': 'Scala', 'value': 'scala'},
+        {'text': 'Swift', 'value': 'swift'},
+        {'text': 'TypeScript', 'value': 'typescript'},
+        {'text': 'SQL', 'value': 'sql'},
+        {'text': 'YAML', 'value': 'yaml'},
+        {'text': 'JSON', 'value': 'json'},
+        {'text': 'Docker', 'value': 'docker'},
+        {'text': 'Markdown', 'value': 'markdown'},
     ],
     'codesample_global_prismjs': True, 
 }
